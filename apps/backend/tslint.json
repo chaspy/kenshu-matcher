@@ -1,0 +1,20 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended"],
+  "rules": {
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "arrow-parameter",
+      "property-declaration",
+      "member-variable-declaration",
+      "object-destructuring"
+    ],
+    "interface-name": [true, "never-prefix"],
+    "no-console": [true, "log"],
+    "object-literal-sort-keys": false,
+    "no-implicit-dependencies": false,
+    "no-any": true
+  }
+}

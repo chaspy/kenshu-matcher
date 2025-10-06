@@ -1,0 +1,17 @@
+{
+  "name": "kenshu-matcher",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/frontend",
+    "apps/backend"
+  ],
+  "scripts": {
+    "lint": "npm run lint --workspace apps/frontend && npm run lint --workspace apps/backend",
+    "dev": "concurrently \"npm run dev --workspace apps/backend\" \"npm run dev --workspace apps/frontend\"",
+    "build": "npm run build --workspace packages/mastra-core && npm run build --workspace packages/mastra-llamaindex && npm run build --workspace apps/backend && npm run build --workspace apps/frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
