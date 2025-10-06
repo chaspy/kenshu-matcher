@@ -1,0 +1,175 @@
+:root {
+  font-family: 'Noto Sans JP', system-ui, sans-serif;
+  color: #1f2933;
+  background-color: #f5f7fa;
+  line-height: 1.5;
+}
+
+body,
+html,
+#root {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.subtitle {
+  color: #52606d;
+}
+
+.tab-container {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid #d2d6dc;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: 600;
+}
+
+.tab.active {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.panel {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.panel-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid #d2d6dc;
+  background-color: #f8fafc;
+}
+
+button[type='submit'] {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button[type='submit']:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.tagline {
+  color: #52606d;
+  margin: 0.5rem 0;
+}
+
+.metric {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  border-radius: 999px;
+  padding: 0.4rem 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.summary {
+  background-color: #f8fafc;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #d2d6dc;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+progress {
+  width: 100%;
+  height: 0.75rem;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #e5e7eb;
+}
+
+progress::-webkit-progress-value {
+  background-color: #2563eb;
+}
+
+progress::-moz-progress-bar {
+  background-color: #2563eb;
+}

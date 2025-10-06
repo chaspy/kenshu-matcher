@@ -1,0 +1,11 @@
+node_modules/
+*.log
+npm-debug.log*
+pnpm-lock.yaml
+yarn.lock
+apps/backend/dist/
+apps/frontend/dist/
+packages/mastra-core/dist/
+packages/mastra-llamaindex/dist/
+.dev.db*
+.env

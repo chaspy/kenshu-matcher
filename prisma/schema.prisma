@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../apps/backend/node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Skill {
+  id        Int              @id @default(autoincrement())
+  name      String           @unique
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  trainings TrainingSkill[]
+}
+
+model Training {
+  id          Int              @id @default(autoincrement())
+  title       String
+  description String
+  url         String
+  source      String
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  skills      TrainingSkill[]
+}
+
+model TrainingSkill {
+  training   Training @relation(fields: [trainingId], references: [id])
+  trainingId Int
+  skill      Skill    @relation(fields: [skillId], references: [id])
+  skillId    Int
+
+  @@id([trainingId, skillId])
+}
