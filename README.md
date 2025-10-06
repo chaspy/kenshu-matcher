@@ -12,30 +12,21 @@ B2B 向けに、従業員のキャリア目標に合った研修をおすすめ�
 ## セットアップ
 
 ```bash
-npm install
-npm run build
+pnpm i
+pnpm dev
 ```
 
-`.env` をルートに作成してください (`.env.example` をコピー)。
+- `.env` をルートに作成してください (`cp .env.example .env`)。
+- `pnpm i` は全ワークスペースの依存関係を導入します。
+- `pnpm dev` はサーバー起動前に `prisma db push` を実行し、SQLite スキーマと Prisma クライアントを同期したうえでバックエンド (http://localhost:4000) とフロントエンド (http://localhost:5173) を同時起動します。
+  - Prisma コマンドが権限エラーで停止した場合は `PRISMA_GENERATE_SKIP_AUTOINSTALL=true pnpm --filter kenshu-matcher-backend prisma:generate` を一度実行してください。
 
-- `DATABASE_URL` には `file:./dev.db` を指定するとリポジトリ直下に SQLite ファイルが生成されます。
-- `OPENAI_API_KEY`、`GEMINI_API_KEY` に API キーを設定すると、AI 推薦要約に各モデルを利用します。未設定の場合はヒューリスティックに基づく要約を返します。
-
-Prisma クライアントの生成とマイグレーションを実行します。
+追加でスキーマを変更した場合は次のコマンドを使います。
 
 ```bash
-npm run prisma:generate --workspace apps/backend
-npm run prisma:migrate --workspace apps/backend -- "dev --name init"
+pnpm --filter kenshu-matcher-backend prisma:generate
+pnpm --filter kenshu-matcher-backend prisma:migrate -- "dev --name <migration>"
 ```
-
-開発サーバーは以下で同時起動します。
-
-```bash
-npm run dev
-```
-
-- フロントエンド: http://localhost:5173
-- バックエンド API: http://localhost:4000
 
 ## テストデータ
 
@@ -44,7 +35,7 @@ npm run dev
 ## Lint
 
 ```bash
-npm run lint
+pnpm lint
 ```
 
 ## 主なフォルダ構成

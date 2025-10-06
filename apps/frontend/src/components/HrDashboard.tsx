@@ -16,8 +16,13 @@ const HrDashboard = (): JSX.Element => {
     return <p>読み込み中...</p>;
   }
 
-  if (error !== undefined) {
-    return <p className="error">ダッシュボードの取得中にエラーが発生しました</p>;
+  if (error != null) {
+    const err = error as unknown as {
+      readonly message?: string;
+      readonly response?: { readonly status?: number; readonly statusText?: string };
+    };
+    const detail = err.message ?? (err.response?.statusText ?? '不明なエラー');
+    return <p className="error">ダッシュボードの取得中にエラーが発生しました: {detail}</p>;
   }
 
   return (

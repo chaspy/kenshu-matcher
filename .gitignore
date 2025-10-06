@@ -7,5 +7,8 @@ apps/backend/dist/
 apps/frontend/dist/
 packages/mastra-core/dist/
 packages/mastra-llamaindex/dist/
+# SQLite dev databases (do not commit)
+prisma/dev.db
+apps/backend/prisma/
 .dev.db*
 .env

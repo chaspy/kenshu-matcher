@@ -2,6 +2,7 @@ import express from 'express';
 import { PORT } from './config';
 import recommendationRoute from './routes/recommendationRoute';
 import dashboardRoute from './routes/dashboardRoute';
+import youtubeRoute from './routes/youtubeRoute';
 import { ensureSeedData } from './services/catalogService';
 
 const bootstrap = async (): Promise<void> => {
@@ -16,6 +17,7 @@ const bootstrap = async (): Promise<void> => {
 
   app.use('/api/recommendations', recommendationRoute);
   app.use('/api/hr-dashboard', dashboardRoute);
+  app.use('/api/youtube', youtubeRoute);
 
   app.listen(PORT, () => {
     // eslint-disable-next-line no-console

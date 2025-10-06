@@ -11,6 +11,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.json"
   },
+  "dependencies": {
+    "@mastra/core": "workspace:*"
+  },
   "devDependencies": {
     "typescript": "^5.5.4"
   }

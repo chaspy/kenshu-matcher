@@ -1,5 +1,7 @@
 import { FormEvent, useMemo, useState } from 'react';
 import { CareerGoal, RecommendationRequest } from '../types';
+import { useHrDashboard } from '../hooks/useRecommendations';
+import { useEffect } from 'react';
 import { useRecommendationMutation } from '../hooks/useRecommendations';
 import TrainingList from './TrainingList';
 
@@ -44,6 +46,17 @@ const createInitialState = (): FormState => ({
 
 const EmployeePlanner = (): JSX.Element => {
   const [formState, setFormState] = useState<FormState>(createInitialState);
+  const { data: dashboard } = useHrDashboard();
+  const employeeOptions = (dashboard?.employees ?? []).map((e) => ({ name: e.name, currentRole: e.currentRole }));
+
+  // 初回ロード時にダッシュボードの従業員を反映
+  useEffect(() => {
+    if (employeeOptions.length > 0 && !employeeOptions.some((e) => e.name === formState.name)) {
+      const first = employeeOptions[0];
+      setFormState((prev) => ({ ...prev, name: first.name, currentRole: first.currentRole }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dashboard?.employees?.length]);
   const recommendationMutation = useRecommendationMutation();
 
   const selectedGoal: CareerGoal | undefined = useMemo(
@@ -77,6 +90,20 @@ const EmployeePlanner = (): JSX.Element => {
     <div className="panel">
       <h2>キャリアプラン作成</h2>
       <form className="form" onSubmit={handleSubmit}>
+        {employeeOptions.length > 0 && (
+          <div className="tab-container" style={{ marginBottom: '0.5rem' }}>
+            {employeeOptions.map((e) => (
+              <button
+                key={e.name}
+                type="button"
+                className={`tab ${formState.name === e.name ? 'active' : ''}`}
+                onClick={() => setFormState({ ...formState, name: e.name, currentRole: e.currentRole })}
+              >
+                {e.name}
+              </button>
+            ))}
+          </div>
+        )}
         <label>
           氏名
           <input
@@ -138,8 +165,17 @@ const EmployeePlanner = (): JSX.Element => {
           summary={recommendationMutation.data.summary}
         />
       )}
-      {recommendationMutation.error !== undefined && (
-        <p className="error">提案の生成中に問題が発生しました</p>
+      {recommendationMutation.isError && recommendationMutation.error != null && (
+        <p className="error">
+          {(() => {
+            const err = recommendationMutation.error as unknown as {
+              readonly message?: string;
+              readonly response?: { readonly status?: number; readonly statusText?: string };
+            };
+            const detail = err.message ?? (err.response?.statusText ?? '不明なエラー');
+            return `提案の生成中に問題が発生しました: ${detail}`;
+          })()}
+        </p>
       )}
     </div>
   );

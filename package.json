@@ -7,11 +7,22 @@
     "apps/backend"
   ],
   "scripts": {
-    "lint": "npm run lint --workspace apps/frontend && npm run lint --workspace apps/backend",
-    "dev": "concurrently \"npm run dev --workspace apps/backend\" \"npm run dev --workspace apps/frontend\"",
-    "build": "npm run build --workspace packages/mastra-core && npm run build --workspace packages/mastra-llamaindex && npm run build --workspace apps/backend && npm run build --workspace apps/frontend"
+    "predev": "node scripts/predev.mjs",
+    "dev": "pnpm --filter \"@mastra/*\" -r build && concurrently \"pnpm --filter kenshu-matcher-backend dev\" \"wait-on http://localhost:4000/health && pnpm --filter kenshu-matcher-frontend dev\"",
+    "build": "pnpm --filter \"@mastra/core\" build && pnpm --filter \"@mastra/llamaindex\" build && pnpm --filter kenshu-matcher-backend build && pnpm --filter kenshu-matcher-frontend build",
+    "lint": "pnpm --filter kenshu-matcher-frontend lint && pnpm --filter kenshu-matcher-backend lint"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0"
+  },
+  "packageManager": "pnpm@10.18.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma",
+      "esbuild"
+    ]
   }
 }
